@@ -10,7 +10,7 @@
     <input id="number" type="text" autocomplete="one-time-code" />
 
     <script>
-        $('#number').on('paste', function (e) {
+        $('#number').on('paste change keyup blur input', function (e) {
             let paste = (event.clipboardData || window.clipboardData).getData('text');
             $(this).val(paste.replace(/\D/g, ''))
             e.preventDefault();
