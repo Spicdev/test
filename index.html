@@ -10,9 +10,10 @@
     <input id="number" type="text" value="" autocomplete="one-time-code" />
 
     <script>
-        $('#number').on('keyup paste', function () {
-            var tmp = $(this).val();
-            $(this).val(tmp.replace(/\D/g, ''))
+        $('#number').on('paste', function (e) {
+            let paste = (event.clipboardData || window.clipboardData).getData('text');
+            $(this).val(paste.replace(/\D/g, ''))
+            e.preventDefault();
         })
     </script>
 </body>
