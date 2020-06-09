@@ -1,1 +1,20 @@
-<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' autocomplete='one-time-code' />
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <input id="number" type="text" value="" autocomplete="one-time-code" />
+
+    <script>
+        $('#number').on('keyup', function () {
+            var tmp = $(this).val();
+            $(this).val(tmp.replace(/\D/g, ''))
+        })
+    </script>
+</body>
+
+</html>
