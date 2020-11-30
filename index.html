@@ -7,16 +7,15 @@
 </head>
 
 <body>
-    <input id="number" type="text" autocomplete="one-time-code"/>
-5
+    <input id="number" type="text" autocomplete="one-time-code" />
+    6
     <script>
-        $('#number').on('change keyup blur input', function (e) {
-            //let paste = (event.clipboardData || window.clipboardData).getData('text');
-            //$(this).val(paste.replace(/\D/g, ''))
-            //e.preventDefault();
-            var tmp = $(this).val();
-            $(this).val(tmp.replace(/\D/g, ''))
-        })
+        $("#number").on("keypress keyup blur", function (event) {
+            $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 
