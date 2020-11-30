@@ -8,9 +8,9 @@
 
 <body>
     <input id="number" type="text" autocomplete="one-time-code" />
-    7
+    888
     <script>
-        $("#number").on("keypress keyup blur", function (event) {
+        $("#number").on("keypress keyup blur change input", function (event) {
             $(this).val($(this).val().replace(/[^0-9.]/g, ''));
             if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
                 event.preventDefault();
