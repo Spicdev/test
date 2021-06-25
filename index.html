@@ -19,34 +19,23 @@
 
 
         document.getElementById("btnLoad").addEventListener("click", function showFileSize() {
-            // (Can't use `typeof FileReader === "function"` because apparently it
-            // comes back as "object" on some browsers. So just see if it's there
-            // at all.)
-            if (!window.FileReader) { // This is VERY unlikely, browser support is near-universal
-                console.log("The file API isn't supported on this browser yet.");
-                return;
-            }
-
             var input = document.getElementById('fileinput');
-            if (!input.files) { // This is VERY unlikely, browser support is near-universal
-                console.error("This browser doesn't seem to support the `files` property of file inputs.");
-            } else if (!input.files[0]) {
-                addPara("Please select a file before clicking 'Load'");
+            if (!input.files[0]) {
+                addPara("請上傳檔案");
             } else {
                 var file = input.files[0];
-                addPara("File " + file.name + " is " + (file.size / (1024 * 1024)).toFixed(2) + " MB in size");
+                addPara("檔案 " + file.name + " 大小為 " + (file.size / (1024 * 1024)).toFixed(2) + " MB");
             }
         });
         input.addEventListener('change', function () {
             if (objectURL) {
-                // revoke the old object url to avoid using more memory than needed
                 URL.revokeObjectURL(objectURL);
             }
 
             const file = this.files[0];
             objectURL = URL.createObjectURL(file);
 
-            link.download = file.name; // this name is used when the user downloads the file
+            link.download = file.name;
             link.href = objectURL;
         });
 
