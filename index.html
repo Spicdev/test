@@ -10,8 +10,14 @@
     <form action='#' onsubmit="return false;">
         <input type='file' id='fileinput'>
         <input type='button' id='btnLoad' value='Load'>
+        <a id="link" download>link to your file (upload a file first)</a>
     </form>
     <script>
+        const input = document.getElementById('fileinput');
+        const link = document.getElementById('link');
+        let objectURL;
+
+
         document.getElementById("btnLoad").addEventListener("click", function showFileSize() {
             // (Can't use `typeof FileReader === "function"` because apparently it
             // comes back as "object" on some browsers. So just see if it's there
@@ -30,6 +36,18 @@
                 var file = input.files[0];
                 addPara("File " + file.name + " is " + (file.size / (1024 * 1024)).toFixed(2) + " MB in size");
             }
+        });
+        input.addEventListener('change', function () {
+            if (objectURL) {
+                // revoke the old object url to avoid using more memory than needed
+                URL.revokeObjectURL(objectURL);
+            }
+
+            const file = this.files[0];
+            objectURL = URL.createObjectURL(file);
+
+            link.download = file.name; // this name is used when the user downloads the file
+            link.href = objectURL;
         });
 
         function addPara(text) {
